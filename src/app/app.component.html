@@ -1,11 +1,17 @@
 <div class="container">
   <div class="row my-3">
     <div class="col-4-sm">
-      <ul class="list-group" *ngFor="let user of users">
-        <li class="list-group-item list-group-item-action">{{user.firstName}}</li>
+      <ul class="list-group"
+      *ngFor="let month of months"
+      (mouseenter)="onFilterUsers(month)"
+      >
+        <li class="list-group-item list-group-item-action">{{month}}</li>
       </ul>
     </div>
       <div class="col-6-sm">
+        <ul class="list-group" *ngFor="let user of usersList">
+          <li class="list-group-item list-group-item-action">{{user.fullName}}</li>
+        </ul>
     </div>
   </div>
 </div>

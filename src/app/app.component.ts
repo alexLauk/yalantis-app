@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './interfaces';
-import {Observable} from 'rxjs'
-import { HttpClient } from '@angular/common/http';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +7,33 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  users: User[] = [];
+  //users: User[] = [];
+  months = [];
+  usersList = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private userService: UserService){}
 
   ngOnInit() {
-    this.http.get<User[]>('https://yalantis-react-school.herokuapp.com/api/task0/users')
-      .subscribe(users => {
-        console.log(users);
-        this.users = users;
-    });
+    this.getMonths()
+
+    }
+
+
+  getMonths() {
+    this.userService.fetchUsers()
+      .subscribe(months => {
+       //console.log(months);
+       // создаем новый Set, передавая ему массив, все дубликаты будут удалены.
+        this.months = [...new Set( months.map(obj => obj.month)) ]
+      });
+  }
+
+  onFilterUsers(month: string) {
+    this.userService.fetchUsers()
+    .subscribe(usersList => {
+      //console.log(usersList.filter( user => user.month === month));
+      this.usersList = usersList.filter( user => user.month === month)
+    })
   }
 
 }
