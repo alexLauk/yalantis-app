@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, User } from './user.service';
+import { UserService } from './user.service';
 import { map } from 'rxjs/operators';
 
 @Component({

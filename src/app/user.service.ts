@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { User } from './interfaces';
 
-export interface User {
+/* export interface User {
     firstName: string;
     lastName: string;
     dob: string;
     // fullName?: string;
- }
+ } */
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     public fetchUsers() {
-        return this.http.get<User[]>(this.url)
+        return this.http.get<User[]>(this.url);
         /* .pipe(
             map(users => users.map( user => ({
                 fullName: `${user.firstName} ${user.lastName}`,
