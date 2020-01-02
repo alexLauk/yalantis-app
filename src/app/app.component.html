@@ -2,8 +2,9 @@
   <div class="row my-3">
     <div class="col-4-sm">
       <ul class="list-group"
-      *ngFor="let month of months"
+      *ngFor="let month of users | uniqueMonth"
       (mouseenter)="onFilterUsers(month)"
+      (mouseleave)="onFilterUsers()"
       >
         <li class="list-group-item list-group-item-action">{{month}}</li>
       </ul>
