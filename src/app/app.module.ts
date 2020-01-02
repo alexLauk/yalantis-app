@@ -3,11 +3,14 @@ import { NgModule } from '@angular/core';
 
 import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { UniqueMonthPipe } from './pipes/unique-month.pipe';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UniqueMonthPipe
   ],
   imports: [
     BrowserModule,

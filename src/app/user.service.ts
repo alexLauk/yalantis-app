@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
@@ -6,6 +6,7 @@ export interface User {
     firstName: string;
     lastName: string;
     dob: string;
+    // fullName?: string;
  }
 
 @Injectable({
@@ -19,13 +20,13 @@ export class UserService {
 
     public fetchUsers() {
         return this.http.get<User[]>(this.url)
-        .pipe(
+        /* .pipe(
             map(users => users.map( user => ({
                 fullName: `${user.firstName} ${user.lastName}`,
-                month: new Date(user.dob).toLocaleDateString('en-US',{month: 'long'})})
+                month: new Date(user.dob).toLocaleDateString('en-US', {month: 'long'})})
                 )
               )
-        )
+        ); */
     }
 
 }

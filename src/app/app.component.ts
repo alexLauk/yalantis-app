@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
+import { UserService, User } from './user.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -7,33 +8,30 @@ import { UserService } from './user.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  //users: User[] = [];
-  months = [];
+  users = [];
   usersList = [];
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.getMonths()
-
+    this.userService.fetchUsers()
+        .pipe(
+          map(users => users.map( user => ({
+              fullName: `${user.firstName} ${user.lastName}`,
+              month: new Date(user.dob).toLocaleDateString('en-US', {month: 'long'})})
+              )
+            )
+      )
+      .subscribe(users => {
+       this.users = users;
+      });
     }
 
-
-  getMonths() {
-    this.userService.fetchUsers()
-      .subscribe(months => {
-       //console.log(months);
-       // создаем новый Set, передавая ему массив, все дубликаты будут удалены.
-        this.months = [...new Set( months.map(obj => obj.month)) ]
-      });
-  }
-
   onFilterUsers(month: string) {
-    this.userService.fetchUsers()
-    .subscribe(usersList => {
-      //console.log(usersList.filter( user => user.month === month));
-      this.usersList = usersList.filter( user => user.month === month)
-    })
+    if (month) {
+      this.usersList = this.users.filter( user => user.month === month);
+    } else { this.usersList = []; }
+
   }
 
 }
