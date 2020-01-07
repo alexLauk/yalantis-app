@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
+import { User } from './interfaces';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -8,8 +9,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  isRender = false;
   users = [];
-  usersList = [];
+  filterUsers = [];
 
   constructor(private userService: UserService) {}
 
@@ -23,15 +25,35 @@ export class AppComponent implements OnInit {
             )
       )
       .subscribe(users => {
-       this.users = users;
+        //console.log(users)
+        this.users = users;
       });
-    }
+  }
 
-  onFilterUsers(month: string) {
-    if (month) {
-      this.usersList = this.users.filter( user => user.month === month);
-    } else { this.usersList = []; }
+  getMonths() {
+    const obj = this.users.map(users => users.month)
+                          .reduce((count, months) => {
+                            count[months] = (count[months] || 0) + 1;
+                            return count;
+                          }, {});
+    // console.log(obj);
+    /* console.log( Object.keys(obj).map(month => ({ month, count: obj[month] })));  */
+    return Object.keys(obj).map(month => ({ name: month, count: obj[month] })
+    );
 
   }
+
+  onFilterUsers(month: string) {
+    console.log(month);
+    if (month) {
+      this.filterUsers = this.users.filter( user => user.month === month);
+      // console.log(this.filterUsers);
+    } else {this.filterUsers = []}
+  }
+
+  /* getColor() {
+
+  }
+ */
 
 }
