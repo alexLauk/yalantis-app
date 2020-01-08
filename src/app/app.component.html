@@ -2,11 +2,11 @@
   <div class="row my-3">
     <div class="col-4-sm">
       <ul class="list-group">
-        <li *ngFor="let month of getMonths()"
-        (mouseenter)="onFilterUsers(month.name)"
-        (mouseleave)="onFilterUsers(false)"
-        [appStyle]="month.count"
-        class="list-group-item list-group-item-action">{{month.name}}</li>
+        <li
+            *ngFor="let month of getMonths()"
+            (mouseenter)="onFilterUsers($event, month.name)"
+            [appStyle]="month.count"
+            class="list-group-item list-group-item-action">{{month.name}}</li>
       </ul>
     </div>
       <div class="col-6-sm">

@@ -1,32 +1,26 @@
-import { Directive, ElementRef, HostListener, Renderer2, Input, HostBinding } from '@angular/core';
+import { Directive,Input, HostBinding, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appStyle]'
 })
-export class StyleDirective {
-  // tslint:disable-next-line: no-inferrable-types
+export class StyleDirective implements OnInit {
+
   @Input('appStyle') count: number = 0;
 
-  @HostBinding('style.backgroundColor') bgColor: string = '';
+  private backgroundColor: string;
 
-  constructor(private element: ElementRef, private render: Renderer2) { }
+  @HostBinding('style.backgroundColor') get getBackgroundColor(){
+    return this.backgroundColor
+  }
 
-  @HostListener('mouseenter') onEnter() {
-    /* this.render.setStyle(this.element.nativeElement, 'background-color', 'blue'); */
-
+  ngOnInit() {
     if (this.count < 3) {
-      this.bgColor = 'gray';
+      this.backgroundColor = 'lightgrey';
     } else if (this.count > 2 && this.count < 7) {
-      this.bgColor = 'blue';
+      this.backgroundColor = 'skyblue';
     } else if (this.count > 6 && this.count < 11) {
-      this.bgColor = 'green';
-    } else { this.bgColor = 'red'; }
-
-    /* console.log(this.bgColor);
-    console.log(this.count); */
+      this.backgroundColor = 'lightseagreen';
+    } else { this.backgroundColor = 'lightcoral'; }
   }
 
-  @HostListener('mouseleave') onLeave() {
-      this.bgColor = null;
-  }
 }
