@@ -10,7 +10,7 @@ export class StyleDirective implements OnInit {
   private backgroundColor: string;
 
   @HostBinding('style.backgroundColor') get getBackgroundColor(){
-    return this.backgroundColor
+    return this.backgroundColor;
   }
 
   ngOnInit() {

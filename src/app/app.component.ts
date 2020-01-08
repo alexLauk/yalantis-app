@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.userSubscription) {
-      this.userSubscription.unsubscribe()
+      this.userSubscription.unsubscribe();
     }
   }
 
@@ -40,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onFilterUsers(month: string) {
+      console.log(month)
       this.filterUsers = this.users.filter( user => user.month === month);
   }
 

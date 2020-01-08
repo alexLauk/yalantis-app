@@ -4,7 +4,7 @@
       <ul class="list-group">
         <li
             *ngFor="let month of getMonths()"
-            (mouseenter)="onFilterUsers($event, month.name)"
+            (mouseenter)="onFilterUsers(month.name)"
             [appStyle]="month.count"
             class="list-group-item list-group-item-action">{{month.name}}</li>
       </ul>
