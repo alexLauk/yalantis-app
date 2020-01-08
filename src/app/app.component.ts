@@ -40,7 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onFilterUsers(month: string) {
-      console.log(month)
       this.filterUsers = this.users.filter( user => user.month === month);
   }
 
